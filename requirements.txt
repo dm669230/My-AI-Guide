@@ -8,3 +8,4 @@ python-docx
 pdfminer.six
 sentence-transformers
 langchain-community
+langchain-huggingface

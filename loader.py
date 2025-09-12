@@ -3,9 +3,14 @@ from docx import Document
 import os
 import traceback
 from chunker import split_text
-from embedder import create_chroma_collection
+from embedder import create_chroma_collection, get_retriever
+from dotenv import load_dotenv
 
-def load_documents(directory_path: str = "data\my_docs") -> dict:
+
+load_dotenv()
+docs_derectory = os.getenv("DOCS_DIRECTORY")
+
+def load_documents(directory_path: str = docs_derectory):
     """
     Loads text content from all PDF, DOCX, and TXT files in a directory.
 
@@ -80,12 +85,33 @@ def load_txt(file_path: str) -> str:
     except Exception as e:
         return f"Error reading TXT: {e}"
 
-text_dict = load_documents()
+def load_data_in_vector():
+    document_list = load_documents()
+    for collection_name, data in document_list.items():
+        # text = "\n".join(text_dict.values())
+        collection = collection_name.replace(" ", "_").lower().split(".")[0]
+        print("collection name ====> ", collection)
+        # quit()
+        chunks = split_text(data)
+        # print(chunks)
+        vector_store = create_chroma_collection(chunks=chunks,collection_name=collection)
+    return vector_store
 
-text = "\n".join(text_dict.values())
-chunks = split_text(text)
+vector_store = load_data_in_vector()
+print(vector_store)
 
-# print(chunks)
-vector_srore = create_chroma_collection(chunks=chunks,collection_name="My_study_material")
+# my_vector = get_retriever(collection_name="all_interview_questions_and_answers")
+my_vector_data = get_retriever()
+def get_similarity_search(my_vector_data, query = "list vs tuple"):
+    print(my_vector_data)
+    result = []
+    for vector_Data in my_vector_data:
+        vector_search = vector_Data.similarity_search(query, k=5)
+        result.extend(vector_search)
+    # print(search)
+    return result
 
-print(vector_srore)
+result = get_similarity_search(my_vector_data,query = "list vs tuple")
+# print("result ====>", result)
+for i, search in enumerate(result):
+    print(f"============> {i}")
