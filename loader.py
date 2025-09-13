@@ -88,12 +88,8 @@ def load_txt(file_path: str) -> str:
 def load_data_in_vector():
     document_list = load_documents()
     for collection_name, data in document_list.items():
-        # text = "\n".join(text_dict.values())
         collection = collection_name.replace(" ", "_").lower().split(".")[0]
-        print("collection name ====> ", collection)
-        # quit()
         chunks = split_text(data)
-        # print(chunks)
         vector_store = create_chroma_collection(chunks=chunks,collection_name=collection)
     return vector_store
 
