@@ -9,3 +9,4 @@ pdfminer.six
 sentence-transformers
 langchain-community
 langchain-huggingface
+langchain-openai

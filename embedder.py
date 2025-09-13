@@ -35,35 +35,47 @@ def create_chroma_collection(chunks: List[str], collection_name: str):
 
     return vectorstore
 
+from langchain_community.vectorstores import Chroma
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_core.retrievers import BaseRetriever
+from typing import Union, List
+import chromadb
+from chromadb.config import Settings
 
 
-def get_retriever(collection_name: str = None):
+from typing import Dict, Union
+from langchain_core.retrievers import BaseRetriever
+from langchain_community.vectorstores import Chroma
+from langchain.embeddings import HuggingFaceEmbeddings
+import chromadb
+from chromadb.config import Settings
+
+def get_retriever(collection_name: str = None) -> Dict[str, Dict[str, Union[Chroma, BaseRetriever]]]:
     """
-    Get Chroma retriever(s) by collection name.
-    If collection_name is provided, returns a single Chroma retriever.
-    Otherwise, returns a list of retrievers for all existing collections.
+    Get Chroma vectorstore(s) and retriever(s) in a dictionary.
 
     Args:
         collection_name (str): Name of the Chroma collection to load.  
                                If None, loads all available collections.
 
     Returns:
-        Chroma or List[Chroma]: Chroma retriever instance or list of retrievers.
+        dict: {collection_name: {"vectorstore": Chroma, "retriever": BaseRetriever}}
     """
-    # Initialize embedding function
     embedding_function = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    collection_dict = {}
 
-    all_retrievers = []
     if collection_name:
-        # Load specific collection
         vectorstore = Chroma(
             collection_name=collection_name,
             embedding_function=embedding_function
         )
-        all_retrievers.append(vectorstore)
-        return all_retrievers
+        collection_dict[collection_name] = {
+            "vectorstore": vectorstore,
+            "retriever": vectorstore.as_retriever()
+        }
+        return collection_dict
 
-    # Load all existing collections
+    # Load all collections
     client = chromadb.Client(Settings())
     all_collections = client.list_collections()
 
@@ -72,6 +84,10 @@ def get_retriever(collection_name: str = None):
             collection_name=collection.name,
             embedding_function=embedding_function
         )
-        all_retrievers.append(vectorstore)
+        collection_dict[collection.name] = {
+            "vectorstore": vectorstore,
+            "retriever": vectorstore.as_retriever()
+        }
 
-    return all_retrievers
+    return collection_dict
+

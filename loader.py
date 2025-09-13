@@ -4,6 +4,7 @@ import os
 import traceback
 from chunker import split_text
 from embedder import create_chroma_collection, get_retriever
+from rag_chain import ask_question, create_rag_chain
 from dotenv import load_dotenv
 
 
@@ -87,27 +88,41 @@ def load_txt(file_path: str) -> str:
 
 def load_data_in_vector():
     document_list = load_documents()
+    collection_dict = {}
+    print("document_list", document_list)
     for collection_name, data in document_list.items():
         collection = collection_name.replace(" ", "_").lower().split(".")[0]
         chunks = split_text(data)
         vector_store = create_chroma_collection(chunks=chunks,collection_name=collection)
-    return vector_store
+        collection_dict[collection] = vector_store
+    return collection_dict
 
-vector_store = load_data_in_vector()
-print(vector_store)
+collection_vector_dict= load_data_in_vector()
+print(collection_vector_dict)
 
-# my_vector = get_retriever(collection_name="all_interview_questions_and_answers")
-my_vector_data = get_retriever()
+collection_name = list(collection_vector_dict.keys())[0]
+my_vector_data = get_retriever(collection_name)
+# my_vector_data = {
+#     "my_collection": {
+#         "vectorstore": vectorstore,
+#         "retriever": vectorstore.as_retriever()
+#     }
+# }
 def get_similarity_search(my_vector_data, query = "list vs tuple"):
-    print(my_vector_data)
     result = []
-    for vector_Data in my_vector_data:
-        vector_search = vector_Data.similarity_search(query, k=5)
+    for collection, vector_Data in my_vector_data.items():
+        vector_search = vector_Data["vectorstore"].similarity_search(query, k=5)
         result.extend(vector_search)
     # print(search)
     return result
 
-result = get_similarity_search(my_vector_data,query = "list vs tuple")
+result = get_similarity_search(my_vector_data, query = "list vs tuple")
 # print("result ====>", result)
 for i, search in enumerate(result):
-    print(f"============> {i}")
+    print(f"============> {i}-{search}")
+
+rag_chain = create_rag_chain(my_vector_data[collection_name]["retriever"])
+
+print(rag_chain)
+reply = ask_question(chain=rag_chain,query="what is the deffrence between list and tuple ?")
+print(f"reply from llm : {reply}")
