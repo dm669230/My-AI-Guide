@@ -1,6 +1,6 @@
 # 🧠 Personal Document Q&A Assistant (LangChain + RAG + Vector DB)
 
-A beginner-friendly project that turns your personal documents (PDFs, DOCX, TXT) into a smart assistant using **LangChain**, **OpenAI**, and **Chroma VectorDB**. Just upload files and start asking questions — it will find the right answers from your files using Retrieval-Augmented Generation (RAG).
+A beginner-friendly project that turns your personal documents (PDFs, DOCX, TXT) into a smart assistant using **LangChain**, **OpenAI**, and **Chroma VectorDB**. Just upload files and start asking questions — it will find the right answers from your documents using **Retrieval-Augmented Generation (RAG)**.
 
 ---
 
@@ -17,16 +17,21 @@ A beginner-friendly project that turns your personal documents (PDFs, DOCX, TXT)
 
 ## 🧰 Tech Stack
 
-| Component     | Technology Used           |
-|---------------|----------------------------|
-| LLM           | OpenAI GPT-3.5 / GPT-4     |
-| Framework     | LangChain                  |
-| Embeddings    | OpenAI Embeddings          |
-| Vector DB     | ChromaDB                   |
-| File Parsing  | pdfminer, python-docx, unstructured |
-| Frontend      | Streamlit                  |
-| Environment   | Python 3.8+                |
-```
+| Component     | Technology Used                    |
+|---------------|-------------------------------------|
+| LLM           | OpenAI GPT-3.5 / GPT-4             |
+| Framework     | LangChain                          |
+| Embeddings    | OpenAI Embeddings                  |
+| Vector DB     | ChromaDB                           |
+| File Parsing  | pdfminer, python-docx, unstructured|
+| Frontend      | Streamlit                          |
+| Environment   | Python 3.8+                        |
+
+---
+
+## 📂 Project Structure
+
+
 personal-assistant/
 │
 ├── app.py # Main Streamlit interface
