@@ -45,7 +45,7 @@ personal-assistant/
 ├── requirements.txt # Required Python packages
 └── data/
 └── my_docs/ # Folder containing your uploaded files
-
+```
 
 ## 🧑‍💻 Getting Started
 
