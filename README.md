@@ -19,7 +19,7 @@ A beginner-friendly project that turns your personal documents (PDFs, DOCX, TXT)
 
 | Component     | Technology Used                    |
 |---------------|-------------------------------------|
-| LLM           | OpenAI GPT-3.5 / GPT-4             |
+| LLM           | OpenAI GPT-3.5 / GPT-4 / DeepSeek            |
 | Framework     | LangChain                          |
 | Embeddings    | OpenAI Embeddings                  |
 | Vector DB     | ChromaDB                           |
