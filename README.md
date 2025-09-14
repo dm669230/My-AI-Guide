@@ -26,7 +26,7 @@ A beginner-friendly project that turns your personal documents (PDFs, DOCX, TXT)
 | File Parsing  | pdfminer, python-docx, unstructured |
 | Frontend      | Streamlit                  |
 | Environment   | Python 3.8+                |
-
+```
 personal-assistant/
 │
 ├── app.py # Main Streamlit interface
@@ -41,8 +41,6 @@ personal-assistant/
 └── data/
 └── my_docs/ # Folder containing your uploaded files
 
-
----
 
 ## 🧑‍💻 Getting Started
 
