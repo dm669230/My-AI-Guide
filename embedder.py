@@ -46,7 +46,9 @@ from chromadb.config import Settings
 from typing import Dict, Union
 from langchain_core.retrievers import BaseRetriever
 from langchain_community.vectorstores import Chroma
-from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
+
+
 import chromadb
 from chromadb.config import Settings
 
