@@ -72,31 +72,31 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 ```
-#4. Set Up Environment Variables
+### 4. Set Up Environment Variables
 ```bash
 Create a .env file in the root of the project with one of the following structures:
 ```
 
-#For DeepSeek API
+### For DeepSeek API
 ```bash
 DEEPSEEK_API_KEY=your-deepseek-api-key
 DEEPSEEK_API_BASE=https://api.deepseek.com/v1
 DOCS_DIRECTORY=data/my_docs
 ```
 
-#For OpenAI API
+### For OpenAI API
 ```bash
 OPENAI_API_KEY=your-openai-api-key
 DOCS_DIRECTORY=data/my_docs
 ```
 
-#5. Run the Streamlit App
+### 5. Run the Streamlit App
 ```bash
 streamlit run app.py
 Then open the browser link (usually http://localhost:8501)
 ```
 
-#How It Works
+### How It Works
 ```bash
 
 Upload documents → PDF, DOCX, TXT
@@ -112,13 +112,13 @@ Ask questions → Query is matched with relevant content
 LLM responds → Answer generated with document context
 ```
 
-#Tools Integration (Optional)
+### Tools Integration (Optional)
 ```bash
 
 Inside tools.py, you can add utility tools that the assistant can call when needed:
 ```
 
-#Tool	Purpose
+### Tool	Purpose
 ```bash
 Calculator	Solve math queries
 Summarizer	Summarize large text content
@@ -127,7 +127,7 @@ SearchTool	Pull info from the web (optional)
 Tools can be registered with LangChain’s Tool API.
 ```
 
-#requirements.txt
+### requirements.txt
 ```bash
 langchain
 openai
@@ -140,7 +140,7 @@ python-docx
 python-dotenv
 ```
 
-#To-Do (Optional Improvements)
+### To-Do (Optional Improvements)
 ```bash
 
  Add chat history and memory support
