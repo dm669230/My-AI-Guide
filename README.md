@@ -31,7 +31,7 @@ A beginner-friendly project that turns your personal documents (PDFs, DOCX, TXT)
 
 ## 📂 Project Structure
 
-
+```bash
 personal-assistant/
 │
 ├── app.py # Main Streamlit interface
